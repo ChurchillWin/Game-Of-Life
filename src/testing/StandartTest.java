@@ -10,24 +10,44 @@ public class StandartTest {
     @BeforeAll
     static void initAll() {
         board = new Board(16);
-        int x = 2;
-        int y = 2;
+        int x = 5;
+        int y = 5;
         board.getCell(x, y).ressurect();
-        board.getCell(x+1, y).ressurect();
-        board.getCell(x-1, y).ressurect();
-        board.getCell(x, y+1).ressurect();
-        board.getCell(x, y-1).ressurect();
+
+        board.getCell(x-1, y).ressurect();//left
+        board.getCell(x+1, y).ressurect();//right
+        board.getCell(x, y+1).ressurect();//bottom
+        board.getCell(x, y-1).ressurect();//top
+        board.getCell(x+1, y+1).ressurect();//bottom right
+        board.getCell(x+1, y-1).ressurect();//top right
+        board.getCell(x-1, y-1).ressurect();//top left
+        board.getCell(x-1, y+1).ressurect();////bottom left
+
+
     }
 
 
     @Test
-    void succeedingTest() {
+    void shouldGetCell() {
+        board.getCell(3, 15).die();
         Assertions.assertNotNull(board.getCell(3, 15));
     }
     @Test
-    void Get_Alive_Neighbours() {
-        Assertions.assertEquals(4, board.getNeighbours(board.getCell(2,2)));
+    void shouldGetFour() {
+        Assertions.assertEquals(8, board.getNeighbours(board.getCell(5,5)));
 
+    }
+    @Test
+    void shouldGetTwo() {
+        board.getCell(1,0).ressurect();
+        board.getCell(0,1).ressurect();
+        Assertions.assertEquals(2, board.getNeighbours(board.getCell(0,0)));
+    }
+    @Test
+    void shouldGetOne() {
+        board.getCell(1,0).die();
+        board.getCell(0,1).ressurect();
+        Assertions.assertEquals(1, board.getNeighbours(board.getCell(0,0)));
     }
 
 
