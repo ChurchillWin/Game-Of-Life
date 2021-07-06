@@ -1,12 +1,11 @@
 package testing;
 
 public class Cell {
-    private int x, y, neighbours = 0;
-    Board board;
+    private final int x, y;
+
     private boolean alive;
     private boolean isAliveFlag;
-    Cell(int x, int y, Board board){
-        this.board = board;
+    Cell(int x, int y){
         this.x = x;
         this.y = y;
         alive = false;
@@ -36,8 +35,4 @@ public class Cell {
         else
             this.die();
     }
-    private void setNeighbors() {
-        neighbours = board.getNeighbours(this);
-    }
-
 }

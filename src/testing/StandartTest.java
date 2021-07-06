@@ -13,7 +13,6 @@ public class StandartTest {
         int x = 5;
         int y = 5;
         board.getCell(x, y).ressurect();
-
         board.getCell(x-1, y).ressurect();//left
         board.getCell(x+1, y).ressurect();//right
         board.getCell(x, y+1).ressurect();//bottom
@@ -46,11 +45,17 @@ public class StandartTest {
     }
     @Test
     void shouldGetOne() {
-        board.getCell(1,0).die();
-        board.getCell(0,1).ressurect();
-        Assertions.assertEquals(1, board.getNeighbours(board.getCell(0,0)));
+        board.getCell(board.getSize()-1,board.getSize()-2).die();
+        board.getCell(board.getSize()-2,board.getSize()-1).ressurect();
+        Assertions.assertEquals(1, board.getNeighbours(board.getCell(board.getSize()-1,board.getSize()-1)));
     }
-
+    //cornercases
+    @Test
+    void shouldReturnTwo() {
+        board.getCell(1,0);
+        board.getCell(0,1);
+        Assertions.assertEquals(2, board.getNeighbours(board.getCell(0,0)));
+    }
 
 
 }
