@@ -33,15 +33,16 @@ public class StandartTest {
         Assertions.assertNotNull(board.getCell(3, 15));
     }
     @Test
-    void shouldGetFour() {
+    void shouldGetAll() {
         Assertions.assertEquals(8, board.getNeighbours(board.getCell(5,5)));
 
     }
     @Test
-    void shouldGetTwo() {
-        board.getCell(1,0).ressurect();
-        board.getCell(0,1).ressurect();
-        Assertions.assertEquals(2, board.getNeighbours(board.getCell(0,0)));
+    void shouldGetThree() {
+        board.getCell(3,1).ressurect();
+        board.getCell(3,2).ressurect();
+        board.getCell(3,3).ressurect();
+        Assertions.assertEquals(3, board.getNeighbours(board.getCell(2,2)));
     }
     @Test
     void shouldGetOne() {

@@ -27,36 +27,36 @@ public class Board {
         int y = cell.getY();
         int n = 0;
         //Sides
-        if (x - 1 >= 0 && getCell(x - 1, y).isAlive()){ //left
+        if (x - 1 >= 0 && getCell(x - 1, y).isAlive()) //left
             n++;
-            if (y - 1 >= 0 && getCell(x - 1, y - 1).isAlive())//top left
-                n++;
-        }
-        if (y - 1 >= 0 && getCell(x, y - 1).isAlive()){//top
+        if (y - 1 >= 0 && getCell(x - 1, y - 1).isAlive())//top left
             n++;
-            if (x + 1 < size && getCell(x + 1, y - 1).isAlive())//top right
-                n++;
-        }
-        if (x + 1 < size && getCell(x + 1, y).isAlive()) {//right
+        if (y - 1 >= 0 && getCell(x, y - 1).isAlive())//top
             n++;
-            if (y + 1 < size && getCell(x + 1, y + 1).isAlive())//bottom right
-                n++;
-        }
-        if (y + 1 < size && getCell(x, y + 1).isAlive()){//bottom
+        if (x + 1 < size && getCell(x + 1, y - 1).isAlive())//top right
             n++;
-            if (x - 1 >= 0 && getCell(x - 1, y + 1).isAlive())//bottom left
-                n++;
-        }
+
+        if (x + 1 < size && getCell(x + 1, y).isAlive()) //right
+            n++;
+        if (y + 1 < size && getCell(x + 1, y + 1).isAlive())//bottom right
+            n++;
+        if (y + 1 < size && getCell(x, y + 1).isAlive())//bottom
+            n++;
+        if (x - 1 >= 0 && getCell(x - 1, y + 1).isAlive())//bottom left
+            n++;
+
 
         return n;
     }
 
     public Cell getCell(int x, int y) {
-        if(x < cells[0].length && y < size){
-            return cells[x][y];
+        if(x < size && y < size){
+            if (x >= 0 && y >= 0)
+                return cells[x][y];
+            return new Cell(0, 0, this);
         }
         else
-            return null;
+            return new Cell(0, 0, this);
     }
 
     public void gameOfLife() {
@@ -85,22 +85,23 @@ public class Board {
     }
 
     private void renderBoard() {
+        final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+        final String ANSI_RED_BACKGROUND = "\u001B[41m";
         String aliveCell = " + ";
         String deadCell = " - ";
         try {
-            long secondsToSleep = 2;
-            Thread.sleep(secondsToSleep * 1000);
+            long secondsToSleep = 1;
+            Thread.sleep(secondsToSleep * 500);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-        System.out.print("\033[H\033[2J");
         for (int i = 0; i < size; i++) {
             System.out.println();
             for (int j = 0; j < size; j++) {
                 if (cells[i][j].isAlive())
-                    System.out.print(aliveCell);
+                    System.out.print(ANSI_RED_BACKGROUND + aliveCell);
                 else
-                    System.out.print(deadCell);
+                    System.out.print(ANSI_BLACK_BACKGROUND + deadCell);
             }
         }
     }
